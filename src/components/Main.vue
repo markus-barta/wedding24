@@ -33,7 +33,7 @@
         </div>
     </v-form>
 
-    <v-alert v-if="showSuccessMessage" type="success" dismissible>
+    <v-alert v-if="showSuccessMessage" type="success" dismissible class="success-message">
       Form successfully submitted!
     </v-alert>
   </v-container>
@@ -109,4 +109,5 @@ const handleSubmit = async () => {
 
 <style>
   .person-card {margin: 40px 0;}
+  .success-message {margin: 40px 0;}
 </style>
