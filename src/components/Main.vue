@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-form @submit.prevent="handleSubmit">
+    <v-form ref="formModel" @submit.prevent="handleSubmit">
 
       <v-card
         class="mx-auto person-card"
@@ -26,7 +26,7 @@
             v-model="form.email"
             label="Email"
             type="email"
-            required
+            :rules="[v => !!v || 'Bitte gib eine EMailadresse an!']"
           ></v-text-field>
 
           <v-select
@@ -34,7 +34,14 @@
             label="Antwort"
             auto-select-first
             :items="['Ich komme gern', 'Ich komme leider nicht']"
-            required
+          ></v-select>
+
+          <v-select
+            v-model="form.bookRoom"
+            label="Zimmer"
+            auto-select-first
+            :items="['1x Einzelzimmer', '1x Doppelzimmer', '1x Doppelzimmer und 1x Einzelzimmer', '2x Einzelzimmer', 'Keines']"
+            v-if="form.rsvp === 'Ich komme gern'"
           ></v-select>
         </v-sheet>
 
@@ -43,12 +50,12 @@
           border
           rounded
           class="sheet"
+          v-if="form.rsvp === 'Ich komme gern'"
         >
 
         <v-text-field
             v-model="form.guestName"
             label="Vorname Nachname"
-            required
           ></v-text-field>
 
           <v-text-field
@@ -61,29 +68,19 @@
             label="Komme in Begleitung von Kindern"
             type="number"
             min="0"
-            required
           ></v-text-field>
-
-          <v-select
-            v-model="form.bookRoom"
-            label="Zimmer"
-            auto-select-first
-            :items="['Ja', 'Nein']"
-            required
-          ></v-select>
 
           <v-select
             v-model="form.foodPreference"
             label="Abendessen"
             auto-select-first
-            :items="['Fleisch', 'Fisch', 'Vegetarisch', 'Vegan', 'Individuell', 'Keines']"
-            required
+            :items="['Fleisch', 'Fisch', 'Vegetarisch', 'Vegan', 'Individuell/Allergie', 'Keines']"
           ></v-select>
 
           <v-text-field
-            v-if="form.foodPreference === 'Individuell'"
+            v-if="form.foodPreference === 'Individuell/Allergie'"
             v-model="form.customFoodPreference"
-            label="Individuelle Essenswünsche"
+            label="Individuelle Essenswünsche und/oder Allergien"
             persistent-hint
           ></v-text-field>
 
@@ -100,8 +97,12 @@
         </div>
     </v-form>
 
-    <v-alert v-if="showSuccessMessage" type="success" dismissible class="success-message">
+    <v-alert v-if="showSuccessMessage" type="success" dismissible class="alert-message">
       Danke für die Rückmeldung, {{ form.guestName }}!
+    </v-alert>
+
+    <v-alert v-if="showValidationFailMessage" type="error" dismissible class="alert-message">
+      Bitte die Pflichtfelder ausfüllen!
     </v-alert>
   </v-container>
 </template>
@@ -113,7 +114,7 @@ import { v4 as uuidv4 } from 'uuid'; // Ensure you have uuid installed or import
 const form = reactive({
   email: '',
   rsvp: 'Ich komme gern',
-  bookRoom: 'Ja',
+  bookRoom: '',
   guestName: '',
   companionName: '',
   kidsNumber: 0,
@@ -125,7 +126,9 @@ const form = reactive({
 const deploymentId = 'AKfycbyUdkCjI2xH6JcSJs-dFRKeuAKQ0hW0snuwCvgWVPb1tVkQFsFtsQXaSORmJWuC-KvV';
 const submitDisabled = ref(false);
 const showSuccessMessage = ref(false);
+const showValidationFailMessage = ref(false);
 const submitInProgress = ref(false);
+const formModel = ref(null);
 
 const enableSubmitButton = () => {
   submitDisabled.value = false;
@@ -144,8 +147,6 @@ const saveFormData = () => {
   // Save only name and email to avoid overwriting UUID with empty string
   const { uuid, ...dataToSave } = form;
   localStorage.setItem('formData', JSON.stringify(dataToSave));
-  submitDisabled.value = true;
-  submitInProgress.value = true;
 };
 
 const loadFormData = () => {
@@ -161,7 +162,20 @@ onMounted(() => {
 });
 
 const handleSubmit = async () => {
+  showValidationFailMessage.value = false;
   saveFormData();
+
+  const formValidation = await formModel.value.validate();
+  if (!formValidation.valid) {
+    showValidationFailMessage.value = true;
+    setTimeout(() => {
+      showValidationFailMessage.value = false;
+    }, 5000); // Hide message after 5 seconds
+    return;
+  }
+
+  submitDisabled.value = true;
+  submitInProgress.value = true;
 
   // Ensure UUID is included in form data for submission
   const formData = new URLSearchParams(form).toString();
@@ -194,7 +208,7 @@ watch(form, async () => {
 
 <style>
   .person-card {margin: 40px 0;}
-  .success-message {margin: 40px 0;}
+  .alert-message {margin: 40px 0;}
   .form {
     display: flex;
     gap: 15px;
