@@ -17,4 +17,11 @@ npm install
 npm run dev
 ```
 
+## How to online deploy
+
+- commit and push to main branch
+- github workflow `pages.yml` is executed
+- webpage is built and deployed automatically  
+
+
 Copyright (c) 2024ff: cici und markus
