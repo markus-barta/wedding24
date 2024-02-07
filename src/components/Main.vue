@@ -29,7 +29,7 @@
           type="email"
           required
         ></v-text-field>
-        <v-btn type="submit" color="primary">Submit</v-btn>
+        <v-btn type="submit" :disabled="submitDisabled" color="primary">Submit</v-btn>
         </div>
     </v-form>
 
@@ -50,7 +50,7 @@ const form = ref({
 });
 
 const deploymentId = 'AKfycbyUdkCjI2xH6JcSJs-dFRKeuAKQ0hW0snuwCvgWVPb1tVkQFsFtsQXaSORmJWuC-KvV';
-
+const submitDisabled = ref(false);
 const showSuccessMessage = ref(false);
 
 const getOrGenerateUUID = () => {
@@ -66,6 +66,7 @@ const saveFormData = () => {
   // Save only name and email to avoid overwriting UUID with empty string
   const { uuid, ...dataToSave } = form.value;
   localStorage.setItem('formData', JSON.stringify(dataToSave));
+  submitDisabled.value = true;
 };
 
 const loadFormData = () => {
