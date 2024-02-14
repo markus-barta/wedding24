@@ -1,30 +1,22 @@
 <template>
   <v-container>
+    <h1 class="centerHeader">Hochzeit von Mailina und Markus</h1>
     <v-form ref="formModel" @submit.prevent="handleSubmit">
 
-      <v-card
-        class="mx-auto person-card"
-        width="50%"
-        prepend-icon="mdi-account"
-      >
-        <template v-slot:title>
-          {{ form.guestName }}
-        </template>
-
-        <v-card-text>
-          {{ form.uuid }}
-        </v-card-text>
-      </v-card>
-
       <div class="form">
-        <v-sheet class="sheet"
+        <v-card class="sheet"
           :elevation="5"
           border
           rounded
         >
-          <v-text-field
+        <!-- Basics -->
+        <template v-slot:title>
+          Grundlegendes
+        </template>
+
+        <v-text-field
             v-model="form.email"
-            label="Email"
+            label="Kontakt-Email - an welche Adresse dürfen wir weitere Information, Photos, etc. senden."
             type="email"
             :rules="[v => !!v || 'Bitte gib eine EMailadresse an!']"
           ></v-text-field>
@@ -33,58 +25,143 @@
             v-model="form.rsvp"
             label="Antwort"
             auto-select-first
-            :items="['Ich komme gern', 'Ich komme leider nicht']"
+            :items="[cReplyStringPositive, cReplyStringNegative]"
           ></v-select>
 
-          <v-select
-            v-model="form.bookRoom"
-            label="Zimmer"
-            auto-select-first
-            :items="['1x Einzelzimmer', '1x Doppelzimmer', '1x Doppelzimmer und 1x Einzelzimmer', '2x Einzelzimmer', 'Keines']"
-            v-if="form.rsvp === 'Ich komme gern'"
-          ></v-select>
-        </v-sheet>
+          <v-text-field
+            v-model="form.guestCount"
+            label="Erwachsene"
+            type="number"
+            min="1"
+            max="2"
+            v-if="form.rsvp === cReplyStringPositive"
+          ></v-text-field>
 
-        <v-sheet
+          <v-text-field
+            v-model="form.kidsCount"
+            label="Kinder"
+            type="number"
+            min="0"
+            max="9"
+            v-if="form.rsvp === cReplyStringPositive"
+          ></v-text-field>
+
+          <v-textarea
+            v-model="form.kidsSpecialInfo"
+            label="Anmerkungen, Essenswünsche oder Allergien der Kinder"
+            persistent-hint
+            auto-grow
+            v-if="form.kidsCount > 0"
+          ></v-textarea>
+
+        </v-card>
+
+        <!-- Guest 1 -->
+        <v-card
           :elevation="5"
           border
           rounded
           class="sheet"
-          v-if="form.rsvp === 'Ich komme gern'"
+          prepend-icon="mdi-account"
+          v-if="form.rsvp === cReplyStringPositive"
         >
+        <template v-slot:title>
+          Gast 1
+        </template>
 
         <v-text-field
-            v-model="form.guestName"
+            v-model="form.guestName1"
             label="Vorname Nachname"
           ></v-text-field>
 
-          <v-text-field
-            v-model="form.companionName"
-            label="Begleitung Vorname Nachname"
-          ></v-text-field>
-
-          <v-text-field
-            v-model="form.kidsNumber"
-            label="Komme in Begleitung von Kindern"
-            type="number"
-            min="0"
-          ></v-text-field>
+          <v-select
+            v-model="form.bookRoom1"
+            label="Zimmer"
+            auto-select-first
+            :items="cRoomOptions"
+            v-if="form.rsvp === cReplyStringPositive"
+          ></v-select>
 
           <v-select
-            v-model="form.foodPreference"
+            v-model="form.foodPreference1"
             label="Abendessen"
             auto-select-first
             :items="['Fleisch', 'Fisch', 'Vegetarisch', 'Vegan', 'Individuell/Allergie', 'Keines']"
           ></v-select>
 
-          <v-text-field
-            v-if="form.foodPreference === 'Individuell/Allergie'"
-            v-model="form.customFoodPreference"
+          <v-textarea
+            v-if="form.foodPreference1 === 'Individuell/Allergie'"
+            v-model="form.customFoodPreference1"
             label="Individuelle Essenswünsche und/oder Allergien"
             persistent-hint
+            auto-grow
+          ></v-textarea>
+
+        </v-card>
+
+        <!-- Guest 2 -->
+        <v-card
+          :elevation="5"
+          border
+          rounded
+          class="sheet"
+          prepend-icon="mdi-account"
+          v-if="(form.rsvp === cReplyStringPositive) && (form.guestCount > 1)"
+        >
+        <template v-slot:title>
+          Gast 2
+        </template>
+
+        <v-text-field
+            v-model="form.guestName2"
+            label="Vorname Nachname"
           ></v-text-field>
 
-        </v-sheet>
+          <v-select
+            v-model="form.bookRoom2"
+            label="Zimmer"
+            auto-select-first
+            :items="cRoomOptions"
+            v-if="form.rsvp === cReplyStringPositive"
+          ></v-select>
+
+          <v-select
+            v-model="form.foodPreference2"
+            label="Abendessen"
+            auto-select-first
+            :items="['Fleisch', 'Fisch', 'Vegetarisch', 'Vegan', 'Individuell/Allergie', 'Keines']"
+          ></v-select>
+
+          <v-textarea
+            v-if="form.foodPreference2 === 'Individuell/Allergie'"
+            v-model="form.customFoodPreference2"
+            label="Individuelle Essenswünsche und/oder Allergien"
+            persistent-hint
+            auto-grow
+          ></v-textarea>
+
+        </v-card>
+
+        <v-card class="sheet"
+          :elevation="5"
+          border
+          rounded
+          v-if="form.rsvp === cReplyStringPositive"
+        >
+          <!-- Basics -->
+          <template v-slot:title>
+            Zusätzliche Informationen
+          </template>
+
+          <v-textarea
+            v-model="form.additionalInfos"
+            label="Sonstige Anmerkungen wie z.B. Liederwünsche"
+            persistent-hint
+            auto-grow
+          ></v-textarea>
+
+        </v-card>
+
 
         <v-btn
           type="submit" 
@@ -97,8 +174,18 @@
         </div>
     </v-form>
 
+    <!-- UUID -->
+    <v-card
+        class="mx-auto person-card"
+        width="50%"
+      >
+        <v-card-text class="person-card-text">
+          Antwort-ID: {{ form.uuid }}
+        </v-card-text>
+      </v-card>
+
     <v-alert v-if="showSuccessMessage" type="success" dismissible class="alert-message">
-      Danke für die Rückmeldung, {{ form.guestName }}!
+      Danke für die Rückmeldung, {{ form.guestName1 }}!
     </v-alert>
 
     <v-alert v-if="showValidationFailMessage" type="error" dismissible class="alert-message">
@@ -113,22 +200,33 @@ import { v4 as uuidv4 } from 'uuid'; // Ensure you have uuid installed or import
 
 const form = reactive({
   email: '',
-  rsvp: 'Ich komme gern',
-  bookRoom: '',
-  guestName: '',
-  companionName: '',
-  kidsNumber: 0,
-  foodPreference: '',
-  customFoodPreference: '',
+  rsvp: cReplyStringPositive,
+  kidsCount: 0,
+  kidsSpecialInfo: '',
+  guestCount: 2,
+  bookRoom1: '',
+  guestName1: '',
+  foodPreference1: '',
+  customFoodPreference1: '',
+  bookRoom2: '',
+  guestName2: '',
+  foodPreference2: '',
+  customFoodPreference2: '',
+  additionalInfos: '',
   uuid: '' 
 });
 
-const deploymentId = 'AKfycbyUdkCjI2xH6JcSJs-dFRKeuAKQ0hW0snuwCvgWVPb1tVkQFsFtsQXaSORmJWuC-KvV';
+//const deploymentId = 'AKfycbyUdkCjI2xH6JcSJs-dFRKeuAKQ0hW0snuwCvgWVPb1tVkQFsFtsQXaSORmJWuC-KvV';
+const deploymentId = 'AKfycbyG4eXygYUsGKsTTIKPWZJNgXinCjbIxIqUIy14oby8478s5kl1G8KeIpCDKT7ZGCpW';
+
 const submitDisabled = ref(false);
 const showSuccessMessage = ref(false);
 const showValidationFailMessage = ref(false);
 const submitInProgress = ref(false);
 const formModel = ref(null);
+const cReplyStringPositive = "Zusage";
+const cReplyStringNegative = "Absage";
+const cRoomOptions = ['Einzelzimmer', 'Doppelzimmer', 'Keines'];
 
 const enableSubmitButton = () => {
   submitDisabled.value = false;
@@ -193,9 +291,17 @@ const handleSubmit = async () => {
     if (!response.ok) throw new Error('Network response was not ok.');
 
     showSuccessMessage.value = true;
+
+    // Scroll to the end of the page after showing the message
+    setTimeout(() => {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }, 500);
+
+    // Hide success message after 5 seconds
     setTimeout(() => {
       showSuccessMessage.value = false;
-    }, 5000); // Hide success message after 5 seconds
+    }, 5000); 
+
   } catch (error) {
     console.error('Error:', error);
   }
@@ -207,7 +313,9 @@ watch(form, async () => {
 </script>
 
 <style>
-  .person-card {margin: 40px 0;}
+  .centerHeader {text-align: center; margin: 30px 0}
+  .person-card {margin: 40px 0}
+  .person-card-text {color: lightgray; text-align: center}
   .alert-message {margin: 40px 0;}
   .form {
     display: flex;
