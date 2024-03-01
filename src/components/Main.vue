@@ -457,7 +457,7 @@ watch(form, async () => {
   and (min-resolution: 3dppx) {
 
   .container-background {
-    background-image: linear-gradient(transparent 50%, rgba(255, 255, 255, 0.9) 90%), url('../assets/bg-center.jpg'); 
+    background-image: linear-gradient(transparent 50%, rgba(255, 255, 255, 0.9) 90%), url('../assets/bg-mobile-portrait.jpg'); 
     background-attachment: fixed;
     background-position: center 50%; 
     background-repeat: no-repeat;
