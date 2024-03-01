@@ -430,4 +430,24 @@ watch(form, async () => {
     }
   }
 
+  @media only screen and (-webkit-min-device-pixel-ratio: 2), 
+       only screen and (min--moz-device-pixel-ratio: 2), 
+       only screen and (-o-min-device-pixel-ratio: 2/1), 
+       only screen and (min-device-pixel-ratio: 2), 
+       only screen and (min-resolution: 192dpi), 
+       only screen and (min-resolution: 2dppx) {
+
+
+    .container-background {
+    background-image: linear-gradient(transparent 50%, rgba(255, 255, 255, 0.9) 90%), url('../assets/bg.jpg');
+    background-attachment: fixed;
+    background-position: right 50%; 
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+  }
+}
+
+
+
 </style>
