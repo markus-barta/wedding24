@@ -313,7 +313,7 @@ watch(form, async () => {
 <style>
 @font-face {
   font-family: 'Millano';
-  src: local('Millano'), url('/assets/Millano.ttf') format('truetype');
+  src: local('Millano'), url('../assets/Millano.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
