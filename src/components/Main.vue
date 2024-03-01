@@ -1,6 +1,9 @@
 <template>
-  <v-container>
-    <h1 class="centerHeader">Hochzeit von Mailina und Markus</h1>
+  <v-container class="container-background" fluid>
+    <h1 class="centerHeader">
+      <span class="line">Hochzeit von</span>
+      <span class="line">Mailina und Markus</span>
+    </h1>
     <v-form ref="formModel" @submit.prevent="handleSubmit">
 
       <div class="form">
@@ -13,12 +16,13 @@
         <template v-slot:title>
           Grundlegendes
         </template>
+        <!-- an welche Adresse dürfen wir weitere Information, Fotos, etc. senden</v-expansion-panel-text -->
 
         <v-text-field
             v-model="form.email"
-            label="Kontakt-Email - an welche Adresse dürfen wir weitere Information, Photos, etc. senden."
+            label="Kontakt-Email"
             type="email"
-            :rules="[v => !!v || 'Bitte gib eine EMailadresse an!']"
+            :rules="[v => !!v || 'Bitte gib eine E-Mailadresse an!']"
           ></v-text-field>
 
           <v-select
@@ -184,9 +188,9 @@
         </v-card-text>
       </v-card>
 
-    <v-alert v-if="showSuccessMessage" type="success" dismissible class="alert-message">
-      Danke für die Rückmeldung, {{ form.guestName1 }}!
-    </v-alert>
+      <v-alert v-if="showSuccessMessage" type="success" dismissible class="alert-message">
+        Danke für die Rückmeldung<span v-if="form.guestName1">, {{ form.guestName1 }}</span>!
+      </v-alert>
 
     <v-alert v-if="showValidationFailMessage" type="error" dismissible class="alert-message">
       Bitte die Pflichtfelder ausfüllen!
@@ -313,16 +317,70 @@ watch(form, async () => {
 </script>
 
 <style>
-  .centerHeader {text-align: center; margin: 30px 0}
-  .person-card {margin: 40px 0}
-  .person-card-text {color: lightgray; text-align: center}
-  .alert-message {margin: 40px 0;}
-  .form {
-    display: flex;
-    gap: 15px;
-    flex-direction: column;
+@font-face {
+  font-family: 'Millano';
+  src: local('Millano'), url('/assets/Millano.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    color: white;
+    text-shadow: none;
   }
-  .form .sheet {
-    padding: 15px;
+  50% {
+    color: #cccccc; /* Light gray for the sparkle effect */
+    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #e0e0e0, 0 0 40px #e0e0e0;
   }
+}
+
+.centerHeader {
+  font-family: 'Millano';
+  font-size: 300%;
+  text-align: center;
+  margin: 30px 0;
+  color: white;
+  letter-spacing: 0;
+  font-weight: 100;
+  animation: sparkle 2s infinite linear;
+}
+
+.centerHeader .line {
+  display: block;
+  margin-bottom: 30px; /* spacing between lines */
+}
+
+.centerHeader .line:last-child {
+  margin-bottom: 0; /* Remove extra space at the bottom */
+}
+
+.person-card {margin: 40px 0;}
+.person-card-text {color: lightgray; text-align: center;}
+.alert-message {margin: 40px 0;}
+.form {
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+}
+
+.container-background {
+  background-image: linear-gradient(transparent 50%, rgba(255, 255, 255, 0.9) 90%), url('../assets/bg.jpg');
+  background-attachment: fixed;
+  /* background-position: top left; */
+  background-position: left 50%; /* Moves background up */
+  background-repeat: no-repeat;
+  background-size: cover;
+  /*background-size: 100% auto;  Adjust to cover the width */
+  min-height: 100vh;
+}
+
+.form .sheet {
+  padding: 15px;
+  width: 50%;
+  margin-left: 0;
+  margin-right: auto;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(5px);
+}
 </style>
