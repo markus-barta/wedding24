@@ -430,7 +430,44 @@ watch(form, async () => {
     }
   }
 
-  @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), 
+  @media only screen 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 2), only screen 
+  and (orientation: landscape) 
+  and (min--moz-device-pixel-ratio: 2), only screen 
+  and (orientation: landscape) 
+  and (-o-min-device-pixel-ratio: 2/1), only screen 
+  and (orientation: landscape) 
+  and (min-device-pixel-ratio: 2), only screen 
+  and (orientation: landscape) 
+  and (min-resolution: 192dpi), only screen 
+  and (orientation: landscape) 
+  and (min-resolution: 2dppx), only screen 
+  and (orientation: landscape) 
+  and (-webkit-min-device-pixel-ratio: 3), only screen 
+  and (orientation: landscape) 
+  and (min--moz-device-pixel-ratio: 3), only screen 
+  and (orientation: landscape) 
+  and (-o-min-device-pixel-ratio: 3/1), only screen 
+  and (orientation: landscape) 
+  and (min-device-pixel-ratio: 3), only screen 
+  and (orientation: landscape) 
+  and (min-resolution: 288dpi), only screen 
+  and (orientation: landscape) 
+  and (min-resolution: 3dppx) {
+
+  .container-background {
+    background-image: linear-gradient(transparent 50%, rgba(255, 255, 255, 0.9) 90%), url('../assets/bg-center.jpg'); 
+    background-attachment: fixed;
+    background-position: center 50%; 
+    background-repeat: no-repeat;
+    background-size: 100vw auto;
+    min-height: 100vh;
+  }
+}
+
+
+  /* @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), 
        only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), 
        only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx),
        only screen and (-webkit-min-device-pixel-ratio: 3), only screen and (min--moz-device-pixel-ratio: 3), 
@@ -445,7 +482,7 @@ watch(form, async () => {
     background-size: cover;
     min-height: 100vh;
   }
-}
+} */
 
 
 
