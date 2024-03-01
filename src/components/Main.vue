@@ -164,33 +164,29 @@
             auto-grow
           ></v-textarea>
 
-        </v-card>
-
-
-        <v-btn
-          type="submit" 
-          :disabled="submitDisabled"
-          color="primary"
-          :loading="submitInProgress" 
-        >
-          Absenden
-        </v-btn>
+        </v-card class="sheet">
+          <v-btn
+            type="submit" 
+            :disabled="submitDisabled"
+            color="primary"
+            :loading="submitInProgress"
+            class="button-container"
+          >
+            Antwort Absenden
+          </v-btn>
         </div>
     </v-form>
 
     <!-- UUID -->
-    <v-card
-        class="mx-auto person-card"
-        width="50%"
-      >
-        <v-card-text class="person-card-text">
-          Antwort-ID: {{ form.uuid }}
-        </v-card-text>
-      </v-card>
+    <v-card class="mx-auto person-card" width="50%">
+      <v-card-text class="person-card-text">
+        Antwort-ID: {{ form.uuid }}
+      </v-card-text>
+    </v-card>
 
-      <v-alert v-if="showSuccessMessage" type="success" dismissible class="alert-message">
-        Danke für die Rückmeldung<span v-if="form.guestName1">, {{ form.guestName1 }}</span>!
-      </v-alert>
+    <v-alert v-if="showSuccessMessage" type="success" dismissible class="alert-message">
+      Danke für die Rückmeldung<span v-if="form.guestName1">, {{ form.guestName1 }}</span>!
+    </v-alert>
 
     <v-alert v-if="showValidationFailMessage" type="error" dismissible class="alert-message">
       Bitte die Pflichtfelder ausfüllen!
@@ -200,7 +196,7 @@
 
 <script setup>
 import { ref, reactive, onMounted, watch } from 'vue';
-import { v4 as uuidv4 } from 'uuid'; // Ensure you have uuid installed or import it
+import { v4 as uuidv4 } from 'uuid'; 
 
 const form = reactive({
   email: '',
@@ -220,9 +216,7 @@ const form = reactive({
   uuid: '' 
 });
 
-//const deploymentId = 'AKfycbyUdkCjI2xH6JcSJs-dFRKeuAKQ0hW0snuwCvgWVPb1tVkQFsFtsQXaSORmJWuC-KvV';
 const deploymentId = 'AKfycbyG4eXygYUsGKsTTIKPWZJNgXinCjbIxIqUIy14oby8478s5kl1G8KeIpCDKT7ZGCpW';
-
 const submitDisabled = ref(false);
 const showSuccessMessage = ref(false);
 const showValidationFailMessage = ref(false);
@@ -324,7 +318,7 @@ watch(form, async () => {
   font-style: normal;
 }
 
-@keyframes sparkle {
+ @keyframes sparkle_v0 {
   0%, 100% {
     color: white;
     text-shadow: none;
@@ -333,7 +327,23 @@ watch(form, async () => {
     color: #cccccc; /* Light gray for the sparkle effect */
     text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #e0e0e0, 0 0 40px #e0e0e0;
   }
+} 
+
+@keyframes sparkle {
+  0%, 20% { /*  peak */
+    color: white;
+    text-shadow: none;
+  }
+  20%, 60% { /* pause */
+    color: #cccccc;
+    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #e0e0e0, 0 0 40px #e0e0e0;
+  }
+  60%, 100% { /* complete fade */
+    color: white;
+    text-shadow: none;
+  }
 }
+
 
 .centerHeader {
   font-family: 'Millano';
@@ -343,7 +353,7 @@ watch(form, async () => {
   color: white;
   letter-spacing: 0;
   font-weight: 100;
-  animation: sparkle 2s infinite linear;
+  animation: sparkle 4s infinite linear;
 }
 
 .centerHeader .line {
@@ -352,7 +362,7 @@ watch(form, async () => {
 }
 
 .centerHeader .line:last-child {
-  margin-bottom: 0; /* Remove extra space at the bottom */
+  margin-bottom: 90; /* extra space at the bottom */
 }
 
 .person-card {margin: 40px 0;}
@@ -367,20 +377,57 @@ watch(form, async () => {
 .container-background {
   background-image: linear-gradient(transparent 50%, rgba(255, 255, 255, 0.9) 90%), url('../assets/bg.jpg');
   background-attachment: fixed;
-  /* background-position: top left; */
-  background-position: left 50%; /* Moves background up */
+  /* background-position: left 50%; */
+  background-position: center 50%; /* Move background up */
   background-repeat: no-repeat;
   background-size: cover;
-  /*background-size: 100% auto;  Adjust to cover the width */
   min-height: 100vh;
 }
 
 .form .sheet {
+  color:  rgba(25, 25, 25, 1);
   padding: 15px;
   width: 50%;
   margin-left: 0;
   margin-right: auto;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(5px);
 }
+
+/*
+
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(5px);
+
+*/
+
+.button-container {
+  width: 50%;
+}
+
+  /* Media query for tablets in portrait mode */
+  @media (min-width: 701px) and (max-width: 1024px) {
+    .form .sheet {
+      width: 60%; /* tablets in portrait */
+      margin-left: 0; 
+      margin-right: auto;
+      padding: 15px; 
+    }
+    .button-container {
+      width: 60%; 
+    }
+  }
+
+  /* Media query for mobile devices */
+  @media (max-width: 700px) {
+    .form .sheet {
+      width: 100%; /* Full width for mobile devices */
+      margin: 0; /* Remove  margins for mobile */
+      padding: 10px; /*  padding for mobile  */
+    }
+    .button-container {
+      width: 100%; 
+    }
+  }
+
 </style>
