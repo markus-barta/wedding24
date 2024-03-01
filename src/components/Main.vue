@@ -461,7 +461,7 @@ watch(form, async () => {
     background-attachment: fixed;
     background-position: center 50%; 
     background-repeat: no-repeat;
-    background-size: 100vw auto;
+    background-size: cover;
     min-height: 100vh;
   }
 }
