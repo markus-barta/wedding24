@@ -86,14 +86,6 @@
           ></v-text-field>
 
           <v-select
-            v-model="form.bookRoom1"
-            label="Zimmer"
-            auto-select-first
-            :items="cRoomOptions"
-            v-if="form.rsvp === cReplyStringPositive"
-          ></v-select>
-
-          <v-select
             v-model="form.foodPreference1"
             label="Abendessen"
             auto-select-first
@@ -128,14 +120,6 @@
           ></v-text-field>
 
           <v-select
-            v-model="form.bookRoom2"
-            label="Zimmer"
-            auto-select-first
-            :items="cRoomOptions"
-            v-if="form.rsvp === cReplyStringPositive"
-          ></v-select>
-
-          <v-select
             v-model="form.foodPreference2"
             label="Abendessen"
             auto-select-first
@@ -160,8 +144,26 @@
         >
           <!-- Basics -->
           <template v-slot:title>
-            Zusätzliche Informationen
+            Zimmer
           </template>
+
+          <v-text-field
+            v-model="form.bookRoom1"
+            label="Einzelzimmer"
+            type="number"
+            min="0"
+            max="2"
+            v-if="form.rsvp === cReplyStringPositive"
+          ></v-text-field>
+          
+          <v-text-field
+            v-model="form.bookRoom2"
+            label="Doppelzimmer"
+            type="number"
+            min="0"
+            max="2"
+            v-if="form.rsvp === cReplyStringPositive"
+          ></v-text-field>
 
           <v-textarea
             v-model="form.additionalInfos"
@@ -210,19 +212,20 @@ const form = reactive({
   kidsCount: 0,
   kidsSpecialInfo: '',
   guestCount: 2,
-  bookRoom1: '',
   guestName1: '',
   foodPreference1: '',
   customFoodPreference1: '',
-  bookRoom2: '',
   guestName2: '',
   foodPreference2: '',
   customFoodPreference2: '',
+  bookRoom1: 0,
+  bookRoom2: 1,
   additionalInfos: '',
   uuid: '' 
 });
 
-const deploymentId = 'AKfycbyG4eXygYUsGKsTTIKPWZJNgXinCjbIxIqUIy14oby8478s5kl1G8KeIpCDKT7ZGCpW';
+//const deploymentId = 'AKfycbyG4eXygYUsGKsTTIKPWZJNgXinCjbIxIqUIy14oby8478s5kl1G8KeIpCDKT7ZGCpW';
+const deploymentId = 'AKfycbwczoKAMcXjCS4wbmY_Z63xiyLxVYw968k0jPfxhb8mfH2aAlTLJr50UVZtejvJL9KL';
 const submitDisabled = ref(false);
 const showSuccessMessage = ref(false);
 const showValidationFailMessage = ref(false);
@@ -230,7 +233,7 @@ const submitInProgress = ref(false);
 const formModel = ref(null);
 const cReplyStringPositive = "Zusage";
 const cReplyStringNegative = "Absage";
-const cRoomOptions = ['Einzelzimmer', 'Doppelzimmer', 'Keines'];
+const cRoomOptions = ['1', '2', '0'];
 
 const enableSubmitButton = () => {
   submitDisabled.value = false;
