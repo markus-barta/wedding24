@@ -1,9 +1,16 @@
 <template>
   <v-container class="container-background" fluid>
+    <!-- 
     <h1 class="centerHeader">
       <span class="line">Hochzeit von</span>
       <span class="line">Mailina und Markus</span>
     </h1>
+    -->
+    <div class="image-yes-container">
+      <img src="../assets/wir-sagen-ja.png" alt="Wir sagen ja">
+      <div class="mm-overlay">MAILINA UND MARKUS</div>
+      <div class="date-overlay">24<br>05<br>24</div>
+    </div>
     <v-form ref="formModel" @submit.prevent="handleSubmit">
 
       <div class="form">
@@ -52,7 +59,7 @@
 
           <v-textarea
             v-model="form.kidsSpecialInfo"
-            label="Anmerkungen, Essenswünsche oder Allergien der Kinder"
+            label="Anmerkungen zu den Kindern (Allergien, Wünsche, etc.)"
             persistent-hint
             auto-grow
             v-if="form.kidsCount > 0"
@@ -61,12 +68,12 @@
         </v-card>
 
         <!-- Guest 1 -->
+        <!-- prepend-icon="mdi-account" -->
         <v-card
           :elevation="5"
           border
           rounded
           class="sheet"
-          prepend-icon="mdi-account"
           v-if="form.rsvp === cReplyStringPositive"
         >
         <template v-slot:title>
@@ -109,7 +116,6 @@
           border
           rounded
           class="sheet"
-          prepend-icon="mdi-account"
           v-if="(form.rsvp === cReplyStringPositive) && (form.guestCount > 1)"
         >
         <template v-slot:title>
@@ -311,12 +317,24 @@ watch(form, async () => {
 </script>
 
 <style>
-@font-face {
-  font-family: 'Millano';
-  src: local('Millano'), url('../assets/Millano.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
+  @font-face {
+    font-family: 'Millano';
+    src: local('Millano'), url('../assets/Millano.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Geo';
+    src: local('Geo'), url('../assets/GeosansLight.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'MrEaves';
+    src: local('MrEaves'), url('../assets/MrEavesXLModOT-Reg.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
 
  @keyframes sparkle_v0 {
   0%, 100% {
@@ -343,7 +361,6 @@ watch(form, async () => {
     text-shadow: none;
   }
 }
-
 
 .centerHeader {
   font-family: 'Millano';
@@ -393,13 +410,6 @@ watch(form, async () => {
   background-color: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(5px);
 }
-
-/*
-
-  background-color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(5px);
-
-*/
 
 .button-container {
   width: 50%;
@@ -503,25 +513,56 @@ watch(form, async () => {
   }
 }
 
+.image-yes-container {
+    position: relative; /* Establish a positioning context for absolute positioning inside */
+    text-align: center; /* Center the image horizontally */
+    margin-top: 50px; /* Add space on the top, adjust as needed */
+    margin-bottom: 100px; /* Add space on the bottom, adjust as needed */
+ }
+
+.image-yes-container img {
+    max-width: 50%; /* Maximum width of the image is 50% of its container */
+    height: auto; /* Maintain the aspect ratio */
+    display: block; /* Treat the image as a block-level element */
+    margin-left: auto; /* These two margin properties will center the image */
+    margin-right: auto;
+    opacity: 0.8;
+}
+
+.mm-overlay {
+  position: absolute;
+  top: 70%; 
+  left: 58%; 
+  transform: translate(-50%, -50%);
+  color: #fff; 
+  font-size: 2vw;
+}
+
+.date-overlay {
+  position: absolute;
+  top: 25%; 
+  left: 56.5%; 
+  transform: translate(-50%, -50%);
+  color: rgba(30, 20, 0, 0.5);
+  font-size: 3vw; 
+  line-height: 1.2;
+}
 
 
-  /* @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), 
-       only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), 
-       only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx),
-       only screen and (-webkit-min-device-pixel-ratio: 3), only screen and (min--moz-device-pixel-ratio: 3), 
-       only screen and (-o-min-device-pixel-ratio: 3/1), only screen and (min-device-pixel-ratio: 3), 
-       only screen and (min-resolution: 288dpi), only screen and (min-resolution: 3dppx) {
 
-    .container-background {
-    background-image: linear-gradient(transparent 50%, rgba(255, 255, 255, 0.9) 90%), url('../assets/bg-mobile-portrait.jpg');
-    background-attachment: fixed;
-    background-position: center 50%; 
-    background-repeat: no-repeat;
-    background-size: cover;
-    min-height: 100vh;
-  }
-} */
+.form .sheet
+{
+  font-family: 'Geo';
+  color: black;
+  font-weight:bolder;
+}
 
+.v-card-title
+{
+  font-family: 'MrEaves';
+  color: black;
+  font-weight:bolder;
+}
 
 
 </style>
