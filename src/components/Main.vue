@@ -18,10 +18,11 @@
         >
         <!-- Basics -->
           <template v-slot:title>
-            <div style="text-align: center">UNSER TAG</div>
+            <div style="text-align: left">UNSER TAG</div>
 
             <!-- Timeline -->
-            <v-timeline side="end" truncate-line="both">
+            <!-- <v-timeline side="end" truncate-line="both"> -->
+            <v-timeline align="start" truncate-line="start">
               <v-timeline-item 
                 v-for="(item, i) in timeLineItems"
                 :key="i"
@@ -30,15 +31,30 @@
                 size="small"
                 fill-dot
               >
+              <template v-slot:opposite>
+                <div
+                  :class="`pt-1 headline font-weight-bold text-${item.color}`"
+                  v-text="item.time"
+                ></div>
+              </template>
 
               <div>
-              <div :class="['text-h6', `bg-${item.color}`]">
-                  {{ item.time }} - {{ item.activity }}
-              </div>
-                <div class="bg-white text--primary">
+                <div :class="['text-h8 v-card-title', `bg-${item.color}`]" style="padding: 0.3em 0.3em; word-wrap: break-word;">
+                    {{ item.activity }}
+                </div>
+                <div class="bg-white text--secondary caption" style="padding: 0.3em 0.3em; word-wrap: break-word;">
                   <p>{{ item.description }}</p>
                 </div>
               </div>
+
+              <!-- <div>
+                <div :class="['text-h8 v-card-title', `bg-${item.color}`]" style="padding: 0px 5px 0px 5px;">
+                    {{ item.activity }}
+                </div>
+                <div class="bg-white text--secondary caption" style="padding: 0px 5px 0px 5px;">
+                  <p>{{ item.description }}</p>
+                </div>
+              </div> -->
 
               </v-timeline-item>
             </v-timeline>
