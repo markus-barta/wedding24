@@ -6,11 +6,11 @@
       <div class="date-overlay">24<br>05<br>24</div>
     </div>
 
-
     <!-- FORM -->
     <v-form ref="formModel" @submit.prevent="handleSubmit">
       <div class="form">
 
+        
         <v-card class="sheet"
           :elevation="5"
           border
@@ -20,7 +20,28 @@
           <template v-slot:title>
             <div style="text-align: center">UNSER TAG</div>
 
-              ...
+            <!-- Timeline -->
+            <v-timeline side="end" truncate-line="both">
+              <v-timeline-item 
+                v-for="(item, i) in timeLineItems"
+                :key="i"
+                :dot-color="item.color"
+                :icon="item.icon"
+                size="small"
+                fill-dot
+              >
+
+              <div>
+              <div :class="['text-h6', `bg-${item.color}`]">
+                  {{ item.time }} - {{ item.activity }}
+              </div>
+                <div class="bg-white text--primary">
+                  <p>{{ item.description }}</p>
+                </div>
+              </div>
+
+              </v-timeline-item>
+            </v-timeline>
             
           </template>
         </v-card>
@@ -326,6 +347,19 @@ const handleSubmit = async () => {
   }
 };
 
+const timeLineItems = ref([
+  { time: '13:00 Uhr', activity: 'Ankunft auf der Burg', description: 'Lorem ipsum dolor sit amet.', color: 'teal' },
+  { time: '14:00 Uhr', activity: 'Fahrt zur Kirche', description: 'Lorem ipsum dolor sit amet.', color: 'green' },
+  { time: '14:30 Uhr', activity: 'Trauung und Agape', description: 'Lorem ipsum dolor sit amet.', color: 'blue' },
+  { time: '16:00 Uhr', activity: 'Empfang auf der Burg', description: 'Lorem ipsum dolor sit amet.', color: 'indigo' },
+  { time: '17:00 Uhr', activity: 'Burgmuseum (optional)', description: 'Lorem ipsum dolor sit amet.', color: 'deep-purple' },
+  { time: '18:30 Uhr', activity: 'Hochzeitsessen', description: 'Lorem ipsum dolor sit amet.', color: 'purple' },
+  { time: '20:30 Uhr', activity: 'Hochzeitstanz', description: 'Lorem ipsum dolor sit amet.', color: 'pink' },
+  { time: '24:00 Uhr', activity: 'Mitternachtsimbiss', description: 'Lorem ipsum dolor sit amet.', color: 'red' },
+  { time: '', activity: 'Open End - Party', description: 'Lorem ipsum dolor sit amet.', color: 'orange' },
+]);
+
+
 watch(form, async () => {
   enableSubmitButton();
 })
@@ -594,5 +628,14 @@ watch(form, async () => {
   background-color: transparent !important;
   backdrop-filter: blur(5px);
 }
+
+/*  
+.timeline-left-align .v-timeline-item {
+  align-items: flex-start; 
+}
+
+.timeline-left-align .v-timeline-item .v-card {
+  text-align: left; 
+}  */
 
 </style>
