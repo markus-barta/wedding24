@@ -21,7 +21,6 @@
             <div style="text-align: left">UNSER TAG</div>
 
             <!-- Timeline -->
-            <!-- <v-timeline side="end" truncate-line="both"> -->
             <v-timeline align="start" truncate-line="start">
               <v-timeline-item 
                 v-for="(item, i) in timeLineItems"
@@ -32,36 +31,21 @@
                 fill-dot
               >
               <template v-slot:opposite>
-                <div
-                  :class="`pt-1 headline font-weight-bold text-${item.color}`"
-                  v-text="item.time"
-                ></div>
+                <div :class="`pt-1 headline font-weight-bold text-${item.color}`" v-text="item.time"></div>
               </template>
-
               <div>
-                <div :class="['text-h8 v-card-title', `bg-${item.color}`]" style="padding: 0.3em 0.3em; word-wrap: break-word;">
-                    {{ item.activity }}
+                <!-- <div :class="['timeline-header', `bg-${item.color}`]" > -->
+                <div class="timeline-header" >
+                  {{ item.activity }}
                 </div>
-                <div class="bg-white text--secondary caption" style="padding: 0.3em 0.3em; word-wrap: break-word;">
+                <div class="text--secondary caption timeline-desc">
                   <p>{{ item.description }}</p>
                 </div>
               </div>
-
-              <!-- <div>
-                <div :class="['text-h8 v-card-title', `bg-${item.color}`]" style="padding: 0px 5px 0px 5px;">
-                    {{ item.activity }}
-                </div>
-                <div class="bg-white text--secondary caption" style="padding: 0px 5px 0px 5px;">
-                  <p>{{ item.description }}</p>
-                </div>
-              </div> -->
-
               </v-timeline-item>
             </v-timeline>
-            
           </template>
         </v-card>
-
 
         <v-card class="sheet"
           :elevation="5"
@@ -364,16 +348,17 @@ const handleSubmit = async () => {
 };
 
 const timeLineItems = ref([
-  { time: '13:00 Uhr', activity: 'Ankunft auf der Burg', description: 'Lorem ipsum dolor sit amet.', color: 'teal' },
-  { time: '14:00 Uhr', activity: 'Fahrt zur Kirche', description: 'Lorem ipsum dolor sit amet.', color: 'green' },
-  { time: '14:30 Uhr', activity: 'Trauung und Agape', description: 'Lorem ipsum dolor sit amet.', color: 'blue' },
-  { time: '16:00 Uhr', activity: 'Empfang auf der Burg', description: 'Lorem ipsum dolor sit amet.', color: 'indigo' },
-  { time: '17:00 Uhr', activity: 'Burgmuseum (optional)', description: 'Lorem ipsum dolor sit amet.', color: 'deep-purple' },
-  { time: '18:30 Uhr', activity: 'Hochzeitsessen', description: 'Lorem ipsum dolor sit amet.', color: 'purple' },
-  { time: '20:30 Uhr', activity: 'Hochzeitstanz', description: 'Lorem ipsum dolor sit amet.', color: 'pink' },
-  { time: '24:00 Uhr', activity: 'Mitternachtsimbiss', description: 'Lorem ipsum dolor sit amet.', color: 'red' },
-  { time: '', activity: 'Open End - Party', description: 'Lorem ipsum dolor sit amet.', color: 'orange' },
+  { time: '13:00 Uhr', activity: 'Ankunft', description: 'Die Gäste treffen in der malerischen Kulisse der Burg ein, voller Vorfreude auf das bevorstehende Fest.', color: 'teal' },
+  { time: '14:00 Uhr', activity: 'Kirche', description: 'Ein festlicher Konvoi begleitet das Brautpaar zur nahegelegenen Kirche, wo sie sich das Ja-Wort geben werden. Da Parkplätze nur eingeschränk vorhanden sind empfehlen wir Fahrgemeinschaften.', color: 'green' },
+  { time: '14:30 Uhr', activity: 'Trauung', description: 'Im kleinen aber feinen Rahmen geben sich Mailina und Markus ihr Versprechen der Liebe und Treue, umgeben von Familie und Freunden.', color: 'blue' },
+  { time: '16:00 Uhr', activity: 'Burg', description: 'Zurück auf der Burg, werden das Brautpaar und ihre Gäste mit einem herzlichen Empfang  begrüßt.', color: 'indigo' },
+  { time: '17:00 Uhr', activity: 'Museum', description: 'Optional - für geschichtsinteressierte Gäste bietet sich während des Fotoshootings die Möglichkeit, das Burgmuseum zu erkunden und in die Vergangenheit einzutauchen.', color: 'deep-purple' },
+  { time: '18:30 Uhr', activity: 'Hochzeitsessen', description: 'Ein festliches Abendessen im romatischen und mittelalterlichem Ambiente, bei dem die Gäste in den Genuss exquisiter Speisen und erlesener Weine kommen.', color: 'purple' },
+  { time: '20:30 Uhr', activity: 'Hochzeitstanz', description: 'Der erste Tanz des Brautpaares eröffnet den Tanzreigen, ein unvergesslicher Moment voller Liebe und Harmonie.', color: 'pink' },
+  { time: '24:00 Uhr', activity: 'Mitternachtsimbiss', description: 'Ein leckerer Mitternachtsimbiss sorgt für neue Energie, um die Feierlichkeiten bis in die frühen Morgenstunden fortzusetzen.', color: 'red' },
+  { time: 'Open End', activity: 'Party', description: 'Die Feier geht weiter und die Tanzfläche bebt bis die Füße schmerzen und alle in die weichen Federkissen fallen.', color: 'orange' },
 ]);
+
 
 
 watch(form, async () => {
@@ -645,13 +630,33 @@ watch(form, async () => {
   backdrop-filter: blur(5px);
 }
 
-/*  
-.timeline-left-align .v-timeline-item {
-  align-items: flex-start; 
+.v-timeline-item {
+  word-wrap: break-word;
+  white-space: normal;
 }
 
-.timeline-left-align .v-timeline-item .v-card {
-  text-align: left; 
-}  */
+.timeline-header{
+  padding: 0.3em 0.3em 0.3em 0.3em;
+  word-wrap: break-word;
+  white-space: normal;
+  font-size: 14px;
+  line-height: 1.4; 
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.timeline-desc{
+  padding: 0.3em 0.3em 0.3em 0.3em;
+  word-wrap: break-word;
+  white-space: normal;
+  font-size: small;
+  line-height: 1.2; 
+  font-family: 'Geo';
+}
+
+.text-h8.v-card-title, .caption {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
 
 </style>
