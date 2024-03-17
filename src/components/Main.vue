@@ -1,19 +1,31 @@
 <template>
   <v-container class="container-background" fluid>
-    <!-- 
-    <h1 class="centerHeader">
-      <span class="line">Hochzeit von</span>
-      <span class="line">Mailina und Markus</span>
-    </h1>
-    -->
     <div class="image-yes-container">
       <img src="../assets/wir-sagen-ja.png" alt="Wir sagen ja">
-      <div class="mm-overlay">MAILINA UND MARKUS</div>
+      <div class="mm-overlay">HOCHZEIT VON<br>MAILINA UND MARKUS</div>
       <div class="date-overlay">24<br>05<br>24</div>
     </div>
-    <v-form ref="formModel" @submit.prevent="handleSubmit">
 
+
+    <!-- FORM -->
+    <v-form ref="formModel" @submit.prevent="handleSubmit">
       <div class="form">
+
+        <v-card class="sheet"
+          :elevation="5"
+          border
+          rounded
+        >
+        <!-- Basics -->
+          <template v-slot:title>
+            <div style="text-align: center">UNSER TAG</div>
+
+              ...
+            
+          </template>
+        </v-card>
+
+
         <v-card class="sheet"
           :elevation="5"
           border
@@ -21,7 +33,7 @@
         >
         <!-- Basics -->
         <template v-slot:title>
-          Grundlegendes
+          Rückmeldung zur Einladung
         </template>
         <!-- an welche Adresse dürfen wir weitere Information, Fotos, etc. senden</v-expansion-panel-text -->
 
@@ -32,7 +44,7 @@
             :rules="[v => !!v || 'Bitte gib eine E-Mailadresse an!']"
           ></v-text-field>
 
-          <v-select
+          <v-select class="styledselect"
             v-model="form.rsvp"
             label="Antwort"
             auto-select-first
@@ -59,7 +71,7 @@
 
           <v-textarea
             v-model="form.kidsSpecialInfo"
-            label="Anmerkungen zu den Kindern (Allergien, Wünsche, etc.)"
+            label="Anmerkung"
             persistent-hint
             auto-grow
             v-if="form.kidsCount > 0"
@@ -144,7 +156,7 @@
         >
           <!-- Basics -->
           <template v-slot:title>
-            Zimmer
+            Zimmer und Wünsche
           </template>
 
           <v-text-field
@@ -167,7 +179,7 @@
 
           <v-textarea
             v-model="form.additionalInfos"
-            label="Sonstige Anmerkungen wie z.B. Liederwünsche"
+            label="Weitere Anmerkungen, Liederwünsche, etc."
             persistent-hint
             auto-grow
           ></v-textarea>
@@ -390,7 +402,7 @@ watch(form, async () => {
 .alert-message {margin: 40px 0;}
 .form {
   display: flex;
-  gap: 15px;
+  gap: 35px;
   flex-direction: column;
 }
 
@@ -429,6 +441,9 @@ watch(form, async () => {
     .button-container {
       width: 60%; 
     }
+    .image-yes-container img {
+      max-width: 70%;
+    }
   }
 
   /* Media query for mobile devices */
@@ -440,6 +455,9 @@ watch(form, async () => {
     }
     .button-container {
       width: 100%; 
+    }
+    .image-yes-container img {
+      max-width: 80%;
     }
   }
 
@@ -478,7 +496,6 @@ watch(form, async () => {
     min-height: 100vh;
   }
 }
-
 
 @media only screen 
   and (orientation: portrait) 
@@ -524,12 +541,13 @@ watch(form, async () => {
  }
 
 .image-yes-container img {
-    max-width: 50%; /* Maximum width of the image is 50% of its container */
+    max-width: 60%; /* Maximum width of the image is 50% of its container */
     height: auto; /* Maintain the aspect ratio */
     display: block; /* Treat the image as a block-level element */
     margin-left: auto; /* These two margin properties will center the image */
     margin-right: auto;
     opacity: 0.8;
+    filter: blur(0.4px) drop-shadow(0 0 12px rgba(255, 255, 255, 1));
 }
 
 .mm-overlay {
@@ -539,19 +557,18 @@ watch(form, async () => {
   transform: translate(-50%, -50%);
   color: #fff; 
   font-size: 2vw;
+  text-shadow: 0 0 5px rgba(25, 5, 0, 0.6); /* Correct property for text shadow */
 }
 
 .date-overlay {
   position: absolute;
   top: 25%; 
-  left: 56.5%; 
+  left: 57.6%; 
   transform: translate(-50%, -50%);
   color: rgba(30, 20, 0, 0.5);
   font-size: 3vw; 
   line-height: 1.2;
 }
-
-
 
 .form .sheet
 {
@@ -567,5 +584,15 @@ watch(form, async () => {
   font-weight:bolder;
 }
 
+.v-list-item-title { /* Dropdown item font*/
+  font-family: 'Geo';
+}
+
+
+.v-list /* Dropdown bg*/
+{
+  background-color: transparent !important;
+  backdrop-filter: blur(5px);
+}
 
 </style>
