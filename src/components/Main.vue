@@ -1,3 +1,6 @@
+<!-- https://pictogrammers.github.io/@mdi/font/2.0.46/ -->
+
+
 <template>
   <v-container class="container-background" fluid>
     <div class="image-yes-container">
@@ -18,7 +21,7 @@
         >
         <!-- Basics -->
           <template v-slot:title>
-            <div style="text-align: left">UNSER TAG</div>
+            <div style="text-align: left">&nbsp&nbspUNSER TAG<br><br></div>
 
             <!-- Timeline -->
             <v-timeline align="start" truncate-line="start">
@@ -27,11 +30,11 @@
                 :key="i"
                 :dot-color="item.color"
                 :icon="item.icon"
-                size="small"
-                fill-dot
+                size="x-small"
               >
               <template v-slot:opposite>
-                <div :class="`pt-1 headline font-weight-bold text-${item.color}`" v-text="item.time"></div>
+                <!-- <div :class="`pt-1 headline font-weight-bold text-${item.color}`" v-text="item.time"></div> -->
+                <div :class="`pt-1 headline font-weight-bold `" v-text="item.time"></div>
               </template>
               <div>
                 <!-- <div :class="['timeline-header', `bg-${item.color}`]" > -->
@@ -48,13 +51,14 @@
         </v-card>
 
         <v-card class="sheet"
+          prepend-icon="mdi-star-outline mdi-spin"
           :elevation="5"
           border
           rounded
         >
         <!-- Basics -->
         <template v-slot:title>
-          Rückmeldung zur Einladung
+          <span class="make-uppercase">Rückmeldung zur Einladung</span>
         </template>
         <!-- an welche Adresse dürfen wir weitere Information, Fotos, etc. senden</v-expansion-panel-text -->
 
@@ -101,8 +105,8 @@
         </v-card>
 
         <!-- Guest 1 -->
-        <!-- prepend-icon="mdi-account" -->
         <v-card
+          prepend-icon="mdi-heart-outline mdi-spin"
           :elevation="5"
           border
           rounded
@@ -110,7 +114,7 @@
           v-if="form.rsvp === cReplyStringPositive"
         >
         <template v-slot:title>
-          Gast 1
+          <span class="make-uppercase">Gast 1</span>
         </template>
 
         <v-text-field
@@ -137,6 +141,7 @@
 
         <!-- Guest 2 -->
         <v-card
+          prepend-icon="mdi-heart-outline mdi-spin"
           :elevation="5"
           border
           rounded
@@ -144,7 +149,7 @@
           v-if="(form.rsvp === cReplyStringPositive) && (form.guestCount > 1)"
         >
         <template v-slot:title>
-          Gast 2
+          <span class="make-uppercase">Gast 2</span>
         </template>
 
         <v-text-field
@@ -170,6 +175,7 @@
         </v-card>
 
         <v-card class="sheet"
+          prepend-icon="mdi-star-outline mdi-spin"
           :elevation="5"
           border
           rounded
@@ -177,8 +183,9 @@
         >
           <!-- Basics -->
           <template v-slot:title>
-            Zimmer und Wünsche
+            <span class="make-uppercase">Zimmer und Wünsche</span>
           </template>
+          <div class="plain-text">Es stehen genügend Zimmer mit Frühstück für alle Gäste zur Verfügung. Euer Geschenk an uns ist eure Übernachtung.</div>
 
           <v-text-field
             v-model="form.bookRoom1"
@@ -216,14 +223,17 @@
             Antwort Absenden
           </v-btn>
         </div>
-    </v-form>
+      </v-form>
+      <div class="uuid-style">
+            Antwort-ID: {{ form.uuid }}
+      </div>
 
     <!-- UUID -->
-    <v-card class="mx-auto person-card" width="50%">
+    <!-- <v-card class="mx-auto person-card" width="50%">
       <v-card-text class="person-card-text">
         Antwort-ID: {{ form.uuid }}
       </v-card-text>
-    </v-card>
+    </v-card> -->
 
     <v-alert v-if="showSuccessMessage" type="success" dismissible class="alert-message">
       Danke für die Rückmeldung<span v-if="form.guestName1">, {{ form.guestName1 }}</span>!
@@ -238,6 +248,7 @@
 <script setup>
 import { ref, reactive, onMounted, watch } from 'vue';
 import { v4 as uuidv4 } from 'uuid'; 
+// import '@mdi/font/css/materialdesignicons.min.css';
 
 const form = reactive({
   email: '',
@@ -348,15 +359,15 @@ const handleSubmit = async () => {
 };
 
 const timeLineItems = ref([
-  { time: '13:00 Uhr', activity: 'Ankunft', description: 'Die Gäste treffen in der malerischen Kulisse der Burg ein, voller Vorfreude auf das bevorstehende Fest.', color: 'teal' },
-  { time: '14:00 Uhr', activity: 'Kirche', description: 'Ein festlicher Konvoi begleitet das Brautpaar zur nahegelegenen Kirche, wo sie sich das Ja-Wort geben werden. Da Parkplätze nur eingeschränk vorhanden sind empfehlen wir Fahrgemeinschaften.', color: 'green' },
+  { time: '13:00 Uhr', activity: 'Ankunft', description: 'Die Gäste treffen in der malerischen Kulisse der Burg Deutschlandsberg ein, voller Vorfreude auf das bevorstehende Fest. → Burgplatz 1, 8530 Deutschlandsberg', color: 'teal' },
+  { time: '14:00 Uhr', activity: 'Kirche', description: 'Weiter geht es zur nahegelegenen Wolfgangikirche, wo sich das Paar das Ja-Wort geben wird. Da Parkplätze nur sehr eingeschränk vorhanden sind, empfehlen wir Fahrgemeinschaften. → Kruckenberg 19, 8541 Schwanberg (12\' Fahrtzeit)', color: 'green' },
   { time: '14:30 Uhr', activity: 'Trauung', description: 'Im kleinen aber feinen Rahmen geben sich Mailina und Markus ihr Versprechen der Liebe und Treue, umgeben von Familie und Freunden.', color: 'blue' },
-  { time: '16:00 Uhr', activity: 'Burg', description: 'Zurück auf der Burg, werden das Brautpaar und ihre Gäste mit einem herzlichen Empfang  begrüßt.', color: 'indigo' },
-  { time: '17:00 Uhr', activity: 'Museum', description: 'Optional - für geschichtsinteressierte Gäste bietet sich während des Fotoshootings die Möglichkeit, das Burgmuseum zu erkunden und in die Vergangenheit einzutauchen.', color: 'deep-purple' },
+  { time: '16:00 Uhr', activity: 'Burg', description: 'Zurück auf der Burg, werden das Brautpaar und ihre Gäste mit einem herzlichen Empfang von den Gästen begrüßt. Die Burg bietet zahlreiche Entdeckungsmöglichkeiten und die malerische Kulisse ist wie geschaffen für bezaubernde Fotoaufnahmen.', color: 'indigo' },
+  { time: '17:00 Uhr', activity: 'Museum', description: 'Optional: Für geschichtsinteressierte Gäste bietet sich z.B. während des Fotoshootings die Möglichkeit, das Burgmuseum zu erkunden und in die Vergangenheit einzutauchen.', color: 'deep-purple' },
   { time: '18:30 Uhr', activity: 'Hochzeitsessen', description: 'Ein festliches Abendessen im romatischen und mittelalterlichem Ambiente, bei dem die Gäste in den Genuss exquisiter Speisen und erlesener Weine kommen.', color: 'purple' },
   { time: '20:30 Uhr', activity: 'Hochzeitstanz', description: 'Der erste Tanz des Brautpaares eröffnet den Tanzreigen, ein unvergesslicher Moment voller Liebe und Harmonie.', color: 'pink' },
-  { time: '24:00 Uhr', activity: 'Mitternachtsimbiss', description: 'Ein leckerer Mitternachtsimbiss sorgt für neue Energie, um die Feierlichkeiten bis in die frühen Morgenstunden fortzusetzen.', color: 'red' },
-  { time: 'Open End', activity: 'Party', description: 'Die Feier geht weiter und die Tanzfläche bebt bis die Füße schmerzen und alle in die weichen Federkissen fallen.', color: 'orange' },
+  { time: '24:00 Uhr', activity: 'Mitternachtsimbiss', description: 'Ein leckerer Mitternachtsimbiss versorgt die Gäste mit neuer Energie, um die Nacht durchzutanzen.', color: 'red' },
+  { time: 'Open End', activity: 'Party', description: 'Die Feier geht weiter und die Tanzfläche bebt bis in den frühen Morgenstunden alle in die weichen Federkissen fallen.', color: 'orange' }
 ]);
 
 
@@ -461,8 +472,16 @@ watch(form, async () => {
   backdrop-filter: blur(5px);
 }
 
+.uuid-style {
+  width: 50%; 
+  margin-top: 1em;
+  text-align: center;
+  font-size: small;
+  color:  rgba(125, 125, 125, 0.25);
+}
+
 .button-container {
-  width: 50%;
+  width: 50%; 
 }
 
   /* Media query for tablets in portrait mode */
@@ -472,6 +491,9 @@ watch(form, async () => {
       margin-left: 0; 
       margin-right: auto;
       padding: 15px; 
+    }
+    .uuid-style {
+      width: 60%; 
     }
     .button-container {
       width: 60%; 
@@ -487,6 +509,9 @@ watch(form, async () => {
       width: 100%; /* Full width for mobile devices */
       margin: 0; /* Remove  margins for mobile */
       padding: 10px; /*  padding for mobile  */
+    }
+    .uuid-style {
+      width: 100%; 
     }
     .button-container {
       width: 100%; 
@@ -636,10 +661,11 @@ watch(form, async () => {
 }
 
 .timeline-header{
+  transform: translateY(-0.3em);
   padding: 0.3em 0.3em 0.3em 0.3em;
   word-wrap: break-word;
   white-space: normal;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.4; 
   background-color: rgba(255, 255, 255, 0.2);
 }
@@ -648,7 +674,7 @@ watch(form, async () => {
   padding: 0.3em 0.3em 0.3em 0.3em;
   word-wrap: break-word;
   white-space: normal;
-  font-size: small;
+  font-size: 14px;
   line-height: 1.2; 
   font-family: 'Geo';
 }
@@ -658,5 +684,34 @@ watch(form, async () => {
   word-break: break-word;
   white-space: normal;
 }
+
+.v-timeline-item__opposite {
+  transform: translateY(-0.45em);
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.45); 
+}
+
+.make-uppercase {
+  text-transform: uppercase;
+}
+
+.v-btn.bg-primary {
+  background-color: rgba(125, 24, 46, 0.9) !important;
+}
+
+.v-card-item {
+  text-align: left !important;
+  padding-left: 0.2em !important;
+}
+
+
+.v-card-item__prepend {
+  transform: translateY(-0.06em);  
+}
+
+.plain-text {
+  padding: 0.1em 0.3em 1.3em 0.6em;
+  color: rgba(75, 75, 75, 1);
+}
+
 
 </style>
