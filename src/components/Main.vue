@@ -39,10 +39,24 @@
               <div>
                 <!-- <div :class="['timeline-header', `bg-${item.color}`]" > -->
                 <div class="timeline-header" >
-                  {{ item.activity }}
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="text-align: left;">
+                      {{ item.activity }}
+                    </div>
+                    <div style="text-align: right;  font-size: xx-small; color: grey;">
+                      {{ item.subtext }}
+                    </div>
+                  </div>
                 </div>
                 <div class="text--secondary caption timeline-desc">
                   <p>{{ item.description }}</p>
+                  <a
+                    v-if="item.address && item.address !== ''"
+                    href="#"
+                    @click.prevent="() => openMaps(item.address)"
+                    style="color: inherit; text-decoration: none; font-size: smaller;"><br>
+                    📍 {{ item.addresstext }} <br><span style="margin-left: 1.3em;"> {{ item.postcode }}</span><br><br>
+                  </a>
                 </div>
               </div>
               </v-timeline-item>
@@ -250,6 +264,18 @@ import { ref, reactive, onMounted, watch } from 'vue';
 import { v4 as uuidv4 } from 'uuid'; 
 // import '@mdi/font/css/materialdesignicons.min.css';
 
+const openMaps = (address) => {
+  let url;
+  if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+    url = `maps://maps.apple.com/?q=${address}`;
+  } else if (/Android/.test(navigator.userAgent)) {
+    url = `geo:0,0?q=${address}`;
+  } else {
+    url = `https://www.google.com/maps/search/?api=1&query=${address}`;
+  }
+  window.open(url, '_blank');
+};
+
 const form = reactive({
   email: '',
   rsvp: cReplyStringPositive,
@@ -359,8 +385,8 @@ const handleSubmit = async () => {
 };
 
 const timeLineItems = ref([
-  { time: '13:00 Uhr', activity: 'Ankunft', description: 'In der malerischen Umgebung der Burg Deutschlandsberg finden sich die Gäste ein, voller Vorfreude auf die festlichen Ereignisse. → Burgplatz 1, 8530 Deutschlandsberg', color: 'grey' },
-  { time: '14:00 Uhr', activity: 'Kirche', description: 'Weiter geht es zur nahegelegenen Wolfgangikirche, wo sich das Paar das Ja-Wort geben wird. Da Parkplätze nur sehr eingeschränkt vorhanden sind, empfehlen sich Fahrgemeinschaften. → Kruckenberg 19, 8541 Schwanberg (12\' Fahrtzeit)', color: 'teal' },
+  { time: '13:00 Uhr', activity: 'Ankunft', description: 'In der malerischen Umgebung der Burg Deutschlandsberg finden sich die Gäste ein, voller Vorfreude auf die festlichen Ereignisse.', subtext:'rd. 50\' Fahrtzeit ab Graz', addresstext: 'Burgplatz 1', postcode: '8530 Deutschlandsberg', address: 'Burghotel Deutschlandsberg, Burgplatz 1, 8530 Deutschlandsberg', color: 'grey'},
+  { time: '14:00 Uhr', activity: 'Kirche', description: 'Weiter geht es zur nahegelegenen Wolfgangikirche, wo sich das Paar das Ja-Wort geben wird. Da Parkplätze nur sehr eingeschränkt vorhanden sind, empfehlen sich Fahrgemeinschaften.', subtext:'rd. 12\' Fahrtzeit', addresstext: 'Kruckenberg 19', postcode: '8541 Schwanberg', address: 'Wolfgangikirche, Kruckenberg 19, 8541 Schwanberg',  color: 'teal' },
   { time: '14:30 Uhr', activity: 'Trauung', description: 'Im kleinen aber feinen Rahmen geben sich Mailina und Markus im Beisein von Familie und Freunden ihr Versprechen der Liebe und Treue.', color: 'green' },
   { time: '15:15 Uhr', activity: 'Agape', description: 'Mit Blick auf die idyllische Landschaft bietet ein Glas Sekt den perfekten Anlass, um auf Mailina und Markus anzustoßen - ein stimmungsvoller Auftakt für das Fest der Liebe.', color: 'blue' },
   { time: '16:00 Uhr', activity: 'Burg', description: 'Zurück auf der Burg erweist sich die malerische Kulisse als perfekter Rahmen für bezaubernde Fotoaufnahmen. Parallel dazu offenbart die Umgebung diverse Erkundungsmöglichkeiten.', color: 'indigo' },
