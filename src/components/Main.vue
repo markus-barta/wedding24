@@ -359,15 +359,16 @@ const handleSubmit = async () => {
 };
 
 const timeLineItems = ref([
-  { time: '13:00 Uhr', activity: 'Ankunft', description: 'Die Gäste treffen in der malerischen Kulisse der Burg Deutschlandsberg ein, voller Vorfreude auf das bevorstehende Fest. → Burgplatz 1, 8530 Deutschlandsberg', color: 'teal' },
-  { time: '14:00 Uhr', activity: 'Kirche', description: 'Weiter geht es zur nahegelegenen Wolfgangikirche, wo sich das Paar das Ja-Wort geben wird. Da Parkplätze nur sehr eingeschränk vorhanden sind, währen Fahrgemeinschaften vorteilhaft. → Kruckenberg 19, 8541 Schwanberg (12\' Fahrtzeit)', color: 'green' },
-  { time: '14:30 Uhr', activity: 'Trauung', description: 'Im kleinen aber feinen Rahmen geben sich Mailina und Markus im Beisen von Familie und Freunden ihr Versprechen der Liebe und Treue.', color: 'blue' },
-  { time: '16:00 Uhr', activity: 'Burg', description: 'Zurück auf der Burg, wird das Brautpaar mit einem herzlichen Empfang von den Gästen begrüßt. Die Burg bietet zahlreiche Entdeckungsmöglichkeiten und die malerische Kulisse ist wie geschaffen für bezaubernde Fotoaufnahmen.', color: 'indigo' },
-  { time: '17:00 Uhr', activity: 'Museum', description: 'Optional: Für geschichtsinteressierte Gäste bietet sich z.B. während des Fotoshootings die Möglichkeit, das Burgmuseum zu erkunden und in die Vergangenheit einzutauchen.', color: 'deep-purple' },
-  { time: '18:30 Uhr', activity: 'Hochzeitsessen', description: 'Ein festliches Abendessen im romatischen und mittelalterlichem Ambiente, bei dem die Gäste in den Genuss exquisiter Speisen und erlesener Weine kommen.', color: 'purple' },
-  { time: '20:30 Uhr', activity: 'Hochzeitstanz', description: 'Der erste Tanz des Brautpaares eröffnet den Tanzreigen, ein unvergesslicher Moment voller Liebe und Harmonie.', color: 'pink' },
-  { time: '24:00 Uhr', activity: 'Mitternachtsimbiss', description: 'Ein leckerer Mitternachtsimbiss versorgt die Gäste mit neuer Energie, um die Nacht durchzutanzen.', color: 'red' },
-  { time: 'Open End', activity: 'Party', description: 'Die Feier geht weiter und die Tanzfläche bebt bis in den frühen Morgenstunden alle in die weichen Federkissen fallen.', color: 'orange' }
+  { time: '13:00 Uhr', activity: 'Ankunft', description: 'In der malerischen Umgebung der Burg Deutschlandsberg finden sich die Gäste ein, voller Vorfreude auf die festlichen Ereignisse. → Burgplatz 1, 8530 Deutschlandsberg', color: 'grey' },
+  { time: '14:00 Uhr', activity: 'Kirche', description: 'Weiter geht es zur nahegelegenen Wolfgangikirche, wo sich das Paar das Ja-Wort geben wird. Da Parkplätze nur sehr eingeschränkt vorhanden sind, empfehlen sich Fahrgemeinschaften. → Kruckenberg 19, 8541 Schwanberg (12\' Fahrtzeit)', color: 'teal' },
+  { time: '14:30 Uhr', activity: 'Trauung', description: 'Im kleinen aber feinen Rahmen geben sich Mailina und Markus im Beisein von Familie und Freunden ihr Versprechen der Liebe und Treue.', color: 'green' },
+  { time: '15:15 Uhr', activity: 'Agape', description: 'Mit Blick auf die idyllische Landschaft bietet ein Glas Sekt den perfekten Anlass, um auf Mailina und Markus anzustoßen - ein stimmungsvoller Auftakt für das Fest der Liebe.', color: 'blue' },
+  { time: '16:00 Uhr', activity: 'Burg', description: 'Zurück auf der Burg erweist sich die malerische Kulisse als perfekter Rahmen für bezaubernde Fotoaufnahmen. Parallel dazu offenbart die Umgebung diverse Erkundungsmöglichkeiten.', color: 'indigo' },
+  { time: '17:00 Uhr', activity: 'Museum', description: 'Optional: Für geschichtsinteressierte Gäste bietet sich z.B. während des Fotoshootings die Möglichkeit, im Burgmuseum in die Vergangenheit einzutauchen.', color: 'deep-purple' },
+  { time: '18:30 Uhr', activity: 'Hochzeitsessen', description: 'Ein festliches Abendessen in historischem Ambiente, bei dem Gäste feine Speisen und ausgewählte Weine genießen, gekrönt von einer feinen Hochzeitstorte als Dessert.', color: 'purple' },
+  { time: '20:30 Uhr', activity: 'Hochzeitstanz', description: 'Das Brautpaar eröffnet mit seinem ersten Tanz nicht nur den Tanzabend, sondern sorgt auch für einen heiteren und unvergesslichen Moment voller Liebe, Harmonie und einer Prise Humor.', color: 'pink' },
+  { time: '24:00 Uhr', activity: 'Mitternachtsimbiss', description: 'Ein leckerer Mitternachtsimbiss versorgt die Gäste mit neuer Energie, um mit dem Brautpaar die Nacht durchzufeiern.', color: 'red' },
+  { time: 'Open End', activity: 'Party', description: 'Die Tanzfläche bebt, bis mit den ersten Sonnenstrahlen alle in die weichen Federkissen fallen.', color: 'orange' }
 ]);
 
 
@@ -651,7 +652,7 @@ watch(form, async () => {
 
 .v-list /* Dropdown bg*/
 {
-  background-color: transparent !important;
+  background-color: rgba(255, 255, 255, 0.85)  !important;
   backdrop-filter: blur(5px);
 }
 
@@ -686,7 +687,8 @@ watch(form, async () => {
 }
 
 .v-timeline-item__opposite {
-  transform: translateY(-0.45em);
+  transform: translateY(-0.5em);
+  font-size: 16px;
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.45); 
 }
 
