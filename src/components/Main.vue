@@ -4,7 +4,8 @@
 <template>
   <v-container class="container-background" fluid>
     <div class="image-yes-container">
-      <img src="../assets/wir-sagen-ja.png" alt="Wir sagen ja">
+      <!-- <img src="../assets/wir-sagen-ja.png" alt="Wir sagen ja"> -->
+      <img src="../assets/wir-sagen-ja.svg" alt="Wir sagen ja">
       <div class="mm-overlay">HOCHZEIT VON<br>MAILINA UND MARKUS</div>
       <div class="date-overlay">24<br>05<br>24</div>
     </div>
@@ -21,7 +22,7 @@
         >
         <!-- Basics -->
           <template v-slot:title>
-            <div style="text-align: left">&nbsp&nbspUNSER TAG<br><br></div>
+            <div style="text-align: left; padding-left: 10px;">UNSER TAG - 24.05.2024<br><br></div>
 
             <!-- Timeline -->
             <v-timeline align="start" truncate-line="start">
@@ -450,26 +451,6 @@ watch(form, async () => {
   }
 }
 
-.centerHeader {
-  font-family: 'Millano';
-  font-size: 300%;
-  text-align: center;
-  margin: 30px 0;
-  color: white;
-  letter-spacing: 0;
-  font-weight: 100;
-  animation: sparkle 4s infinite linear;
-}
-
-.centerHeader .line {
-  display: block;
-  margin-bottom: 30px; /* spacing between lines */
-}
-
-.centerHeader .line:last-child {
-  margin-bottom: 90; /* extra space at the bottom */
-}
-
 .person-card {margin: 40px 0;}
 .person-card-text {color: lightgray; text-align: center;}
 .alert-message {margin: 40px 0;}
@@ -495,7 +476,7 @@ watch(form, async () => {
   width: 50%;
   margin-left: 0;
   margin-right: auto;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(5px);
 }
 
@@ -634,7 +615,7 @@ watch(form, async () => {
     margin-left: auto; /* These two margin properties will center the image */
     margin-right: auto;
     opacity: 0.8;
-    filter: blur(0.4px) drop-shadow(0 0 12px rgba(255, 255, 255, 1));
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 1));
 }
 
 .mm-overlay {
@@ -661,18 +642,22 @@ watch(form, async () => {
 {
   font-family: 'Geo';
   color: black;
-  font-weight:bolder;
+  font-weight:bold;
+  text-shadow: 0.1px 0 black, -0.1px 0 black;
+
 }
 
 .v-card-title
 {
   font-family: 'MrEaves';
   color: black;
-  font-weight:bolder;
+  font-weight:bold;
+  text-shadow: 0.1px 0 black, -0.1px 0 black;
 }
 
 .v-list-item-title { /* Dropdown item font*/
   font-family: 'Geo';
+  text-shadow: 0.1px 0 black, -0.1px 0 black;
 }
 
 
@@ -738,7 +723,8 @@ watch(form, async () => {
 
 .plain-text {
   padding: 0.1em 0.3em 1.3em 0.6em;
-  color: rgba(75, 75, 75, 1);
+  color: rgba(95, 95, 95, 1);
+  text-shadow: none;
 }
 
 
