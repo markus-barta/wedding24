@@ -52,13 +52,20 @@
                 </div>
                 <div class="text--secondary caption timeline-desc">
                   <p>{{ item.description }}</p>
-                  <a
+                  <div
                     v-if="item.address && item.address !== ''"
-                    href="#"
                     @click.prevent="() => openMaps(item.address)"
-                    style="color: inherit; text-decoration: none; font-size: smaller;"><br>
-                    📍 {{ item.addresstext }} <br><span style="margin-left: 1.3em;"> {{ item.postcode }}</span><br><br>
-                  </a>
+                    class="d-flex justify-space-between align-center"
+                    style="cursor: pointer; color: inherit; text-decoration: none; font-size: smaller; margin-top: 10px;">
+                    
+                    <div>
+                      📍 {{ item.addresstext }}<br>
+                      <span style="margin-left: 1.3em;">{{ item.postcode }}</span>
+                    </div>
+
+                    <v-icon>mdi-arrow-right-bold-circle</v-icon>
+
+                  </div>
                 </div>
               </div>
               </v-timeline-item>
@@ -528,6 +535,15 @@ watch(form, async () => {
     .image-yes-container img {
       max-width: 80%;
     }
+    .v-container {
+      padding: 4px !important;
+    }
+
+    .v-timeline-item__body {
+      padding-inline-start: 10px !important;
+      padding-inline-end: 10px !important;
+    }
+
   }
 
   @media only screen 
@@ -715,6 +731,7 @@ watch(form, async () => {
 .v-card-item {
   text-align: left !important;
   padding-left: 0.2em !important;
+  padding-right: 0.2em !important;
 }
 
 
@@ -728,9 +745,6 @@ watch(form, async () => {
   text-shadow: none;
 }
 
-.v-timeline-item__body {
-  padding-inline-start: 12px !important;
-  padding-inline-end: 12px !important;
-}
+
 
 </style>
