@@ -63,7 +63,7 @@
                       <span style="margin-left: 1.3em;">{{ item.postcode }}</span>
                     </div>
 
-                    <v-icon>mdi-arrow-right-bold-circle</v-icon>
+                    <v-icon style="opacity: 0.5;">mdi-arrow-right-bold-circle</v-icon>
 
                   </div>
                 </div>
