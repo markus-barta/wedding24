@@ -59,8 +59,14 @@
                     style="cursor: pointer; color: inherit; text-decoration: none; font-size: smaller; margin-top: 10px;">
                     
                     <div>
-                      📍 {{ item.addresstext }}<br>
-                      <span style="margin-left: 1.3em;">{{ item.postcode }}</span>
+                      <template v-if="screenWidth > 450">
+                        📍 {{ item.addresstext }}<br>
+                        <span style="margin-left: 1.3em;">{{ item.postcode }}</span>
+                      </template>
+                      <template v-else>
+                        📍 {{ item.addresstext }}<br>
+                        <span style="margin-left: 1.3em;">{{ item.postcodeShort }}</span>
+                      </template>
                     </div>
 
                     <v-icon style="opacity: 0.5;">mdi-arrow-right-bold-circle</v-icon>
@@ -251,13 +257,6 @@
             Antwort-ID: {{ form.uuid }}
       </div>
 
-    <!-- UUID -->
-    <!-- <v-card class="mx-auto person-card" width="50%">
-      <v-card-text class="person-card-text">
-        Antwort-ID: {{ form.uuid }}
-      </v-card-text>
-    </v-card> -->
-
     <v-alert v-if="showSuccessMessage" type="success" dismissible class="alert-message">
       Danke für die Rückmeldung<span v-if="form.guestName1">, {{ form.guestName1 }}</span>!
     </v-alert>
@@ -269,7 +268,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, watch } from 'vue';
+import { ref, reactive, onMounted, onUnmounted, watch } from 'vue';
 import { v4 as uuidv4 } from 'uuid'; 
 // import '@mdi/font/css/materialdesignicons.min.css';
 
@@ -343,6 +342,8 @@ const loadFormData = () => {
 
 onMounted(() => {
   loadFormData();
+  window.addEventListener('resize', updateScreenWidth);
+  updateScreenWidth(); // Initialize on component mount
 });
 
 const handleSubmit = async () => {
@@ -394,8 +395,8 @@ const handleSubmit = async () => {
 };
 
 const timeLineItems = ref([
-  { time: '13:00 Uhr', activity: 'Ankunft', description: 'In der malerischen Umgebung der Burg Deutschlandsberg finden sich die Gäste ein, voller Vorfreude auf die festlichen Ereignisse.', subtext:'🚙 ~50\' ab Graz', addresstext: 'Burgplatz 1', postcode: '8530 Deutschlandsberg', address: 'Burghotel Deutschlandsberg', color: 'grey'},
-  { time: '14:00 Uhr', activity: 'Kirche', description: 'Weiter geht es zur nahegelegenen Wolfgangikirche, wo sich das Paar das Ja-Wort geben wird. Da Parkplätze nur sehr eingeschränkt vorhanden sind, empfehlen sich Fahrgemeinschaften.', subtext:'🚙 ~12\'', addresstext: 'Kruckenberg 19', postcode: '8541 Schwanberg', address: 'Wolfgangikirche',  color: 'teal' },
+  { time: '13:00 Uhr', activity: 'Ankunft', description: 'In der malerischen Umgebung der Burg Deutschlandsberg finden sich die Gäste ein, voller Vorfreude auf die festlichen Ereignisse.', subtext:'🚙 ~50\' ab Graz', addresstext: 'Burgplatz 1', postcode: '8530 Deutschlandsberg', postcodeShort: '8530 DL', address: 'Burghotel Deutschlandsberg', color: 'grey'},
+  { time: '14:00 Uhr', activity: 'Kirche', description: 'Weiter geht es zur nahegelegenen Wolfgangikirche, wo sich das Paar das Ja-Wort geben wird. Da Parkplätze nur sehr eingeschränkt vorhanden sind, empfehlen sich Fahrgemeinschaften.', subtext:'🚙 ~12\'', addresstext: 'Kruckenberg 19', postcode: '8541 Schwanberg', postcodeShort: '8541 SB', address: 'Wolfgangikirche',  color: 'teal' },
   { time: '14:30 Uhr', activity: 'Trauung', description: 'Im kleinen aber feinen Rahmen geben sich Mailina und Markus im Beisein von Familie und Freunden ihr Versprechen der Liebe und Treue.', color: 'green' },
   { time: '15:15 Uhr', activity: 'Agape', description: 'Mit Blick auf die idyllische Landschaft bietet ein Glas Sekt den perfekten Anlass, um auf Mailina und Markus anzustoßen - ein stimmungsvoller Auftakt für das Fest der Liebe.', color: 'blue' },
   { time: '16:00 Uhr', activity: 'Burg', description: 'Zurück auf der Burg erweist sich die malerische Kulisse als perfekter Rahmen für bezaubernde Fotoaufnahmen. Parallel dazu offenbart die Umgebung diverse Erkundungsmöglichkeiten.', color: 'indigo' },
@@ -406,11 +407,21 @@ const timeLineItems = ref([
   { time: 'Open End', activity: 'Party', description: 'Die Tanzfläche bebt, bis mit den ersten Sonnenstrahlen alle in die weichen Federkissen fallen.', color: 'orange' }
 ]);
 
-
-
 watch(form, async () => {
   enableSubmitButton();
 })
+
+const screenWidth = ref(window.innerWidth);
+
+const updateScreenWidth = () => {
+  screenWidth.value = window.innerWidth;
+};
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateScreenWidth);
+});
+
+
 </script>
 
 <style>
