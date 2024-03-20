@@ -44,6 +44,7 @@
                     <div style="text-align: left;">
                       {{ item.activity }}
                     </div>
+                    <div style="min-width: 5px; ">&nbsp;</div>
                     <div style="text-align: right;  font-size: xx-small; color: grey;">
                       {{ item.subtext }}
                     </div>
@@ -73,7 +74,7 @@
         >
         <!-- Basics -->
         <template v-slot:title>
-          <span class="make-uppercase">Rückmeldung zur Einladung</span>
+          <span class="make-uppercase">Deine Rückmeldung</span>
         </template>
         <!-- an welche Adresse dürfen wir weitere Information, Fotos, etc. senden</v-expansion-panel-text -->
 
@@ -200,7 +201,7 @@
           <template v-slot:title>
             <span class="make-uppercase">Zimmer und Wünsche</span>
           </template>
-          <div class="plain-text">Es stehen genügend Zimmer mit Frühstück für alle Gäste zur Verfügung. Euer Geschenk an uns ist eure Übernachtung.</div>
+          <div class="plain-text">Es stehen genügend Zimmer mit Frühstück für alle Gäste zur Verfügung. Als Geschenk an uns freuen wir uns auf zahlreiche Übernachtungen.</div>
 
           <v-text-field
             v-model="form.bookRoom1"
@@ -386,15 +387,15 @@ const handleSubmit = async () => {
 };
 
 const timeLineItems = ref([
-  { time: '13:00 Uhr', activity: 'Ankunft', description: 'In der malerischen Umgebung der Burg Deutschlandsberg finden sich die Gäste ein, voller Vorfreude auf die festlichen Ereignisse.', subtext:'rd. 50\' Fahrtzeit ab Graz', addresstext: 'Burgplatz 1', postcode: '8530 Deutschlandsberg', address: 'Burghotel Deutschlandsberg', color: 'grey'},
-  { time: '14:00 Uhr', activity: 'Kirche', description: 'Weiter geht es zur nahegelegenen Wolfgangikirche, wo sich das Paar das Ja-Wort geben wird. Da Parkplätze nur sehr eingeschränkt vorhanden sind, empfehlen sich Fahrgemeinschaften.', subtext:'rd. 12\' Fahrtzeit', addresstext: 'Kruckenberg 19', postcode: '8541 Schwanberg', address: 'Wolfgangikirche',  color: 'teal' },
+  { time: '13:00 Uhr', activity: 'Ankunft', description: 'In der malerischen Umgebung der Burg Deutschlandsberg finden sich die Gäste ein, voller Vorfreude auf die festlichen Ereignisse.', subtext:'🚙 ~50\' ab Graz', addresstext: 'Burgplatz 1', postcode: '8530 Deutschlandsberg', address: 'Burghotel Deutschlandsberg', color: 'grey'},
+  { time: '14:00 Uhr', activity: 'Kirche', description: 'Weiter geht es zur nahegelegenen Wolfgangikirche, wo sich das Paar das Ja-Wort geben wird. Da Parkplätze nur sehr eingeschränkt vorhanden sind, empfehlen sich Fahrgemeinschaften.', subtext:'🚙 ~12\'', addresstext: 'Kruckenberg 19', postcode: '8541 Schwanberg', address: 'Wolfgangikirche',  color: 'teal' },
   { time: '14:30 Uhr', activity: 'Trauung', description: 'Im kleinen aber feinen Rahmen geben sich Mailina und Markus im Beisein von Familie und Freunden ihr Versprechen der Liebe und Treue.', color: 'green' },
   { time: '15:15 Uhr', activity: 'Agape', description: 'Mit Blick auf die idyllische Landschaft bietet ein Glas Sekt den perfekten Anlass, um auf Mailina und Markus anzustoßen - ein stimmungsvoller Auftakt für das Fest der Liebe.', color: 'blue' },
   { time: '16:00 Uhr', activity: 'Burg', description: 'Zurück auf der Burg erweist sich die malerische Kulisse als perfekter Rahmen für bezaubernde Fotoaufnahmen. Parallel dazu offenbart die Umgebung diverse Erkundungsmöglichkeiten.', color: 'indigo' },
   { time: '17:00 Uhr', activity: 'Museum', description: 'Optional: Für geschichtsinteressierte Gäste bietet sich z.B. während des Fotoshootings die Möglichkeit, im Burgmuseum in die Vergangenheit einzutauchen.', color: 'deep-purple' },
   { time: '18:30 Uhr', activity: 'Hochzeitsessen', description: 'Ein festliches Abendessen in historischem Ambiente, bei dem Gäste feine Speisen und ausgewählte Weine genießen, gekrönt von einer feinen Hochzeitstorte als Dessert.', color: 'purple' },
   { time: '20:30 Uhr', activity: 'Hochzeitstanz', description: 'Das Brautpaar eröffnet mit seinem ersten Tanz nicht nur den Tanzabend, sondern sorgt auch für einen heiteren und unvergesslichen Moment voller Liebe, Harmonie und einer Prise Humor.', color: 'pink' },
-  { time: '24:00 Uhr', activity: 'Mitternachtsimbiss', description: 'Ein leckerer Mitternachtsimbiss versorgt die Gäste mit neuer Energie, um mit dem Brautpaar die Nacht durchzufeiern.', color: 'red' },
+  { time: '24:00 Uhr', activity: 'Imbiss', description: 'Ein leckerer Mitternachtsimbiss versorgt die Gäste mit neuer Energie, um mit dem Brautpaar die Nacht durchzufeiern.', color: 'red' },
   { time: 'Open End', activity: 'Party', description: 'Die Tanzfläche bebt, bis mit den ersten Sonnenstrahlen alle in die weichen Federkissen fallen.', color: 'orange' }
 ]);
 
@@ -727,5 +728,9 @@ watch(form, async () => {
   text-shadow: none;
 }
 
+.v-timeline-item__body {
+  padding-inline-start: 12px !important;
+  padding-inline-end: 12px !important;
+}
 
 </style>
