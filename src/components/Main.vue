@@ -242,9 +242,7 @@
           ></v-textarea>
 
         </v-card class="sheet">
-<!--          
-
-        <v-btn
+<!-- <v-btn
             type="submit" 
             :disabled="submitDisabled"
             color="primary"
@@ -252,13 +250,12 @@
             class="button-container"
           >
             Antwort Absenden
-          </v-btn>
-        </div>
-      </v-form>
-      <div class="uuid-style">
-            Antwort-ID: {{ form.uuid }}
+          </v-btn> -->
       </div>
--->
+      </v-form>
+      <!-- <div class="uuid-style">
+            Antwort-ID: {{ form.uuid }}
+      </div> -->
     <v-alert v-if="showSuccessMessage" type="success" dismissible class="alert-message">
       Danke für die Rückmeldung<span v-if="form.guestName1">, {{ form.guestName1 }}</span>!
     </v-alert>
