@@ -11,12 +11,32 @@
       <div class="form">
 
         <v-card class="sheet" :elevation="5" border rounded>
+          <template v-slot:title>
+            <span class="make-uppercase">Fotos</span>
+          </template>
           <div>
-            Gäste-Fotos (mit Uploadmöglichkeit): <a href="https://www.icloud.com/sharedalbum/#B0aGI9HKKGPupcK"
-              class="custom-link">Shared Album</a>
-            <br><br>Fotos vom Fotoshooting: coming soon
+            <a href="https://www.icloud.com/sharedalbum/#B0aGI9HKKGPupcK" class="custom-link">
+              <div class="image-wrapper">
+                <svg class="custom-image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30">
+                  <rect x="2" y="4" width="24" height="20" fill="none" stroke="#000" stroke-width="1.5" />
+                  <rect x="6" y="8" width="16" height="12" fill="#add8e6" stroke="#000" stroke-width="1.5" />
+                </svg>
+                <span>Von und mit Gästen: Shared Album</span>
+              </div>
+            </a>
+            <a class="custom-link">
+              <div class="image-wrapper">
+                <svg class="custom-image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30">
+                  <rect x="2" y="4" width="24" height="20" fill="none" stroke="#000" stroke-width="1.5" />
+                  <rect x="6" y="8" width="16" height="12" fill="#add8e6" stroke="#000" stroke-width="1.5" />
+                </svg>
+                <span>Vom Fotoshooting: coming soon</span>
+              </div>
+            </a>
+            <span>Du hast weitere Fotos? Schreib mir doch bitte eine kurze E-Mail und ich füge dich als Uploader hinzu!</span>
           </div>
         </v-card>
+
         <v-card class="sheet" :elevation="5" border rounded>
           <template v-slot:title>
             <div style="text-align: left; padding-left: 10px;">UNSER TAG - 24.05.2024<br><br></div>
@@ -313,7 +333,6 @@ const updateScreenWidth = () => {
 onUnmounted(() => {
   window.removeEventListener('resize', updateScreenWidth);
 });
-
 
 </script>
 
@@ -674,10 +693,22 @@ only screen and (orientation: portrait) and (min-resolution: 3dppx) {
 .custom-link {
   text-decoration: none;
   color: inherit;
+  display: block;
+  margin-bottom: 1em;
 }
 
-.custom-link:hover {
-  text-decoration: underline;
+.image-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.custom-image {
+  margin-right: 0.5em;
+  transition: transform 0.5s;
+}
+
+.custom-link:hover .custom-image {
+  transform: translateX(5px);
 }
 
 .v-card-item {
