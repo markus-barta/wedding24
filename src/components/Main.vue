@@ -316,7 +316,7 @@ const timeLineItems = ref([
   { time: '17:00 Uhr', activity: 'Museum', description: 'Optional: Für geschichtsinteressierte Gäste bietet sich z.B. während des Fotoshootings die Möglichkeit, im Burgmuseum in die Vergangenheit einzutauchen.', color: 'deep-purple' },
   { time: '18:30 Uhr', activity: 'Hochzeitsessen', description: 'Ein festliches Abendessen in historischem Ambiente, bei dem Gäste feine Speisen und ausgewählte Weine genießen, gekrönt von einer feinen Hochzeitstorte als Dessert.', color: 'purple' },
   { time: '20:30 Uhr', activity: 'Hochzeitstanz', description: 'Das Brautpaar eröffnet mit seinem ersten Tanz nicht nur den Tanzabend, sondern sorgt auch für einen heiteren und unvergesslichen Moment voller Liebe, Harmonie und einer Prise Humor.', color: 'pink' },
-  { time: '24:00 Uhr', activity: 'Imbiss', description: 'Ein leckerer Mitternachtsimbiss versorgt die Gäste mit neuer Energie, um mit dem Brautpaar die Nacht durchzufeiern.', color: 'red' },
+  { time: '00:00 Uhr', activity: 'Imbiss', description: 'Ein leckerer Mitternachtsimbiss versorgt die Gäste mit neuer Energie, um mit dem Brautpaar die Nacht durchzufeiern.', color: 'red' },
   { time: 'Open End', activity: 'Party', description: 'Die Tanzfläche bebt, bis mit den ersten Sonnenstrahlen alle in die weichen Federkissen fallen.', color: 'orange' }
 ]);
 
