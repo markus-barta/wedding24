@@ -24,13 +24,13 @@
                 <span>Von und mit Gästen: Shared Album</span>
               </div>
             </a>
-            <a class="custom-link">
+            <a href="https://www.icloud.com/sharedalbum/#B0a5yeZFhWjqML" class="custom-link">
               <div class="image-wrapper">
                 <svg class="custom-image" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30">
                   <rect x="2" y="4" width="24" height="20" fill="none" stroke="#000" stroke-width="1.5" />
                   <rect x="6" y="8" width="16" height="12" fill="#add8e6" stroke="#000" stroke-width="1.5" />
                 </svg>
-                <span>Vom Fotoshooting: coming soon</span>
+                <span>Vom Fotoshooting: Shared Album</span>
               </div>
             </a>
             <span>Du hast weitere Fotos? Schreib mir doch bitte eine kurze E-Mail und ich füge dich als Uploader hinzu!</span>
